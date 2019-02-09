@@ -1,0 +1,43 @@
+= Cypher: Introduction to NO-SQL
+
+== Cypher
+
+image::https://avatars3.githubusercontent.com/u/201120[width=200,float=right]
+
+Cypher is a graph-based query language for the Neo4J database.
+
+Cypher can be used to write graph-based queries reminiscent of ASCII art.
+
+A graph **G** is an ordered pair **(V**, **E)**, where stem: **V** is the set of all vertices and
+**E** is the set of all edges.
+
+== Create a node
+:name: pass:a['<span value-key="name">Rüdiger</span>']
+
+A node v of **V** can be represented by ().
+
+This representation can be provided with the type. The operator : introduces such a type.
+
+Here you see a node of the type person.
+Each person has a name.
+What name should the person have?:
+++++
+<input style="display:inline;width:30%;" value-for="name" class="form-control" value="Rüdiger" size="40">
+++++
+
+[source, cypher,subs=attributes]
+----
+CREATE (a:Person {name:{name}})
+RETURN a
+----
+
+== Create a edge
+An edge can only exist between two node.
+An edge must always be directed.
+The type of edge can be determined within [].
+
+[source, cypher]
+----
+CREATE (a:Person{name:'Bob'})-[b:IS_FRIEND]->(c:Person{name:'Alice'})
+RETURN a,b,c
+----
