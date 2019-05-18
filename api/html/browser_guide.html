@@ -90,6 +90,7 @@
 Each person has a name.
 What name should the person have?:</p>
 </div>
+Person
 <input style="display:inline;width:30%;" value-for="name" class="form-control" value="Rüdiger" size="40">
 <div class="listingblock">
 <div class="content">
@@ -105,7 +106,31 @@ RETURN a<!--/code--></pre>
 
 <slide class="row-fluid">
   <div class="col-sm-12">
-    <h3>Create a edge</h3>
+    <h3>Create a node of a different type</h3>
+    <br/>
+    <div>
+      <div class="paragraph">
+<p>What name and attribute should the Pet have?:</p>
+</div>
+Pet
+<input style="display:inline;width:30%;" value-for="name" class="form-control" value="Rüdiger" size="40">
+is a
+<input style="display:inline;width:30%;" value-for="attr" class="form-control" value="Dog" size="40">
+<div class="listingblock">
+<div class="content">
+<pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->CREATE (a:Pet {name:'<span value-key="name">Rüdiger</span>', type:'<span value-key="name">Dog</span>'})
+RETURN a<!--/code--></pre>
+</div>
+</div>
+	</div>
+  </div>
+</slide>
+
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Create a between existing nodes</h3>
     <br/>
     <div>
       <div class="paragraph">
@@ -113,10 +138,65 @@ RETURN a<!--/code--></pre>
 An edge must always be directed.
 The type of edge can be determined within [].</p>
 </div>
+<input style="display:inline;width:30%;" value-for="name1" class="form-control" value="Marc" size="40">
+is a friend of
+<input style="display:inline;width:30%;" value-for="name2" class="form-control" value="Rüdiger" size="40">
 <div class="listingblock">
 <div class="content">
-<pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->CREATE (a:Person{name:'Bob'})-[b:IS_FRIEND]-&gt;(c:Person{name:'Alice'})
-RETURN a,b,c<!--/code--></pre>
+<pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH (a:Person{name:'<span value-key="name1">Marc</span>'}),(b:Person{name:'<span value-key="name2">Rüdiger</span>'})
+MERGE (a)-[r:IS_FRIEND]->(b)
+RETURN a,r,b<!--/code--></pre>
+</div>
+</div>
+	</div>
+  </div>
+</slide>
+
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Create a between existing nodes of different type</h3>
+    <br/>
+    <div>
+      <div class="paragraph">
+<p>An edge can only exist between two node.
+An edge must always be directed.
+The type of edge can be determined within [].</p>
+</div>
+<input style="display:inline;width:30%;" value-for="name" class="form-control" value="Marc" size="40">
+ownes
+<input style="display:inline;width:30%;" value-for="pet" class="form-control" value="Rüdiger" size="40">
+the
+<input style="display:inline;width:30%;" value-for="type" class="form-control" value="Dog" size="40">
+<div class="listingblock">
+<div class="content">
+<pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH (a:Person{name:'<span value-key="name">Marc</span>'}),(b:Pet{name:'<span value-key="pet">Rüdiger</span>', type:'<span value-key="type">Dog</span>'})
+MERGE (a)-[r:OWNES]->(b)
+RETURN a,r,b<!--/code--></pre>
+</div>
+</div>
+	</div>
+  </div>
+</slide>
+
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Selecting</h3>
+    <br/>
+    <div>
+      <div class="paragraph">
+<p>An edge can only exist between two node.
+An edge must always be directed.
+The type of edge can be determined within [].</p>
+</div>
+<input style="display:inline;width:30%;" value-for="type" class="form-control" value="Dog" size="40">
+<div class="listingblock">
+<div class="content">
+<pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH (a:Person)-[r:OWNES]->(b:Pet{type:'<span value-key="name">Dog</span>'})
+RETURN a,r,b<!--/code--></pre>
 </div>
 </div>
 	</div>
